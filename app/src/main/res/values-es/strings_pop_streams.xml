@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pop_streams_title">Reproducciones activas</string>
+    <plurals name="pop_streams_count">
+        <item quantity="one">%d reproducción</item>
+        <item quantity="other">%d reproducciones</item>
+    </plurals>
+    <string name="pop_streams_empty">Nadie está mirando.</string>
+    <string name="pop_streams_failed">No se pudieron cargar las reproducciones activas.</string>
+    <string name="pop_streams_own_only">Solo los administradores ven las reproducciones de todos; estas son las tuyas.</string>
+    <string name="pop_streams_episode">T%1$d·E%2$d</string>
+    <string name="pop_streams_playing">Reproduciendo</string>
+    <string name="pop_streams_paused">En pausa</string>
+    <string name="pop_streams_direct_play">Reproducción directa</string>
+    <string name="pop_streams_direct_stream">Transmisión directa</string>
+    <string name="pop_streams_transcode">Transcodificando</string>
+</resources>

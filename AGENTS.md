@@ -9,8 +9,9 @@ A personal **fork of the official Jellyfin Android TV app**
 (github.com/jellyfin/jellyfin-androidtv; Kotlin, Compose with Leanback
 leftovers, Media3, Jellyfin Kotlin SDK, Koin) for the pop. Jellyfin server,
 watched on a Fire TV. Upstream gives playback, saved users and the user picker;
-the fork adds pages fed by the server plugin `jellyfin-plugin-pop-requests`
-(My library first) and its own signed releases. It installs **beside** the
+the fork adds pages (My library, Requests, Discover, Streams, SyncPlay) fed by
+the server plugin `jellyfin-plugin-pop-requests` and Jellyfin itself, plus its
+own signed releases with in-app update. It installs **beside** the
 official app: application id `com.antomarioni.jellyfintv`, label "Jellyfin Pop".
 
 > **Fork note.** `master` mirrors upstream untouched; all fork work is on
@@ -77,6 +78,9 @@ pull requests; `app-publish.yaml` never runs here (owner check).
     `DISABLED` (ask which user on open).
   - `app/build.gradle.kts`: one block appended at the end (application id, app
     name, version code).
+  - `ui/itemdetail/FullDetailsFragment.java`: `PopRequestedBy.attach(this)` in
+    `onResume` (the "Requested by" line).
+  - `AndroidManifest.xml`: the updater's permissions and receiver.
   A new hook is one line calling into the pop package; think twice before
   adding one, and list it here.
 - **`popModule` is loaded last**, so a definition in it replaces upstream's of
@@ -122,8 +126,13 @@ app/src/main/java/org/jellyfin/androidtv/
   pop/                         # everything the fork adds
     PopModule.kt               # Koin: fork definitions + overrides
     PopDestinations.kt         # fork screens (next to upstream's Destinations)
-    data/                      # PopRequestsApi, plugin models, per-user choices
-    library/                   # My library: fragment, view model, screen
+    data/                      # PopRequestsApi, library models, per-user choices
+    library/                   # My library (landing page)
+    requests/                  # Requests board + "Requested by" on item details
+    discover/                  # Seerr suggestions and requesting (through the plugin)
+    streams/                   # Active streams (Jellyfin sessions)
+    syncplay/                  # SyncPlay groups; player sync behind an experimental toggle
+    update/                    # in-app update from this repo's GitHub Releases
     ui/                        # toolbar buttons, PosterCard, pills, colors
   ui/shared/toolbar/           # upstream toolbar (hook)
   ui/navigation/               # upstream Destinations, NavigationRepository
@@ -141,28 +150,32 @@ docs/pop-roadmap.md            # agreed pages and their order
 
 My library is the example to copy.
 
-1. Data: models + a method in `pop/data/PopRequestsApi.kt` (shapes come from
-   the plugin, see Ripple awareness).
-2. `pop/<page>/`: view model (state flow, scroll state, focused key,
-   `entries`), screen composable, fragment; register the view model in
-   `PopModule.kt` and the destination in `PopDestinations.kt`.
-3. Toolbar: a value in `PopPage` and a button in `PopToolbarButtons`.
-4. Strings in both `strings_pop.xml` files.
-5. Gate (above), then tag a release when it should reach the TV.
+1. `pop/<page>/`: models + a small API class over the SDK's `ApiClient`, view
+   model (state flow, scroll state, focused key, `entries`), screen, fragment,
+   and a Koin module `val <page>Module`.
+2. Wire it: `includes(...)` in `PopModule.kt`, a destination in
+   `PopDestinations.kt`, a `PopPage` value and an entry in `pop/ui/PopToolbar.kt`.
+3. Strings in `strings_pop_<page>.xml` (`values` and `values-es`).
+4. Gate (above), then tag a release when it should reach the TV.
 
 ## Ripple awareness
 
 - **`jellyfin-plugin-pop-requests`** — github.com/nantomarioni/jellyfin-plugin-pop-requests —
-  expected at `../jellyfin-plugin-pop-requests`. This app reads
-  `GET /PopRequests/library?requester=&sort=&hideWatched=` as the viewer; the
-  shape is `Services/LibraryModel.cs` there and `pop/data/PopLibrary.kt` here
-  (camelCase, ids without dashes). Change a field on both sides. Pushing that
-  repo restarts Jellyfin: check nobody is watching.
-- **Jellyfin server API** (the pop. server runs 12.3): Continue watching is
-  `UserItems/Resume` + `Shows/NextUp` through the SDK.
+  expected at `../jellyfin-plugin-pop-requests`. As the viewer, this app reads
+  `GET /PopRequests/library` (`Services/LibraryModel.cs` ↔ `pop/data/PopLibrary.kt`),
+  `GET /PopRequests/board` and `GET /PopRequests/requesters/{itemId}`
+  (`Services/BoardModel.cs` ↔ `pop/requests/BoardModels.kt`), and
+  `GET /PopRequests/discover` + `POST /PopRequests/request`
+  (`Services/DiscoverModel.cs` ↔ `pop/discover/PopDiscover.kt`; Discover shows
+  "needs the plugin update" until the server has them). camelCase, ids without
+  dashes. Change a field on both sides. Pushing that repo restarts Jellyfin:
+  check nobody is watching.
+- **Jellyfin server API** (the pop. server runs 12.3) through the SDK:
+  `UserItems/Resume` + `Shows/NextUp`, `Sessions`, SyncPlay + its websocket
+  messages.
 - **GitHub Releases of this repo** are the app's update channel: the tag
-  format and the `*-release.apk` asset name are a contract with the (future)
-  in-app updater.
+  format and the `*-release.apk` asset name are a contract with
+  `pop/update/PopUpdateRepository.kt`.
 - **Upstream** — github.com/jellyfin/jellyfin-androidtv (remote `upstream`).
   A rebase can move the hook sites: re-check each hook listed above.
 

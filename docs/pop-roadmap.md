@@ -9,29 +9,33 @@ it the default).
 
 | # | Page | Data | State |
 |---|---|---|---|
-| 1 | **My library** (landing page) | plugin `GET /PopRequests/library`; Continue watching from Jellyfin `UserItems/Resume` + `Shows/NextUp` | done |
-| 2 | **Auto update** | latest GitHub Release of this repo → download the signed APK → package installer (Fire TV asks once for "install unknown apps") | next |
-| 3 | **My requests** + "Requested by" on item details | plugin `GET /PopRequests/board` (`Services/BoardModel.cs`), `GET /PopRequests/requesters/{itemId}` | |
-| 4 | **Active streams** | Jellyfin sessions API | |
-| 5 | **Seerr recommendations and requesting** | new plugin endpoints calling Seerr with its API key | |
-| 6 | **SyncPlay** | Jellyfin SyncPlay API + websocket; absent upstream | |
+| 1 | **My library** (landing page) | plugin `GET /PopRequests/library`; Continue watching from Jellyfin `UserItems/Resume` + `Shows/NextUp` | done, tested on an emulator against the live server |
+| 2 | **Auto update** | latest GitHub Release of this repo → download the signed APK → `PackageInstaller` | written; never run end to end (needs a release newer than the installed one, and a Fire TV) |
+| 3 | **Requests** + "Requested by" on item details | plugin `GET /PopRequests/board`, `GET /PopRequests/requesters/{itemId}` | done, tested read-only against the live server |
+| 4 | **Streams** | Jellyfin sessions API | written; only the empty state was seen live |
+| 5 | **Discover** (Seerr suggestions and requesting) | plugin `GET /PopRequests/discover`, `POST /PopRequests/request` | app and plugin code written; the plugin change is not deployed, so the page shows "needs the plugin update" |
+| 6 | **SyncPlay** | Jellyfin SyncPlay API + websocket | group page written; player sync is behind an experimental toggle, never run against a second client |
 
 ## Notes per page
 
-- **Auto update.** Needs `REQUEST_INSTALL_PACKAGES` and a `FileProvider` in the
-  manifest (new hook). Compare the release tag's `-pop.<N>` with
-  `BuildConfig.VERSION_CODE`. Check on start and from a settings entry.
-- **Requested by.** Upstream's details screen (`ui/itemdetail/FullDetailsFragment`)
-  is still Leanback/Java: expect the hook there to be the least tidy one.
-- **Active streams.** Jellyfin shows a non-admin only their own sessions; if
-  everyone should see all streams, add a plugin endpoint.
+- **Auto update.** Compares the release tag's `-pop.<N>` with the installed
+  version code; a toolbar pill appears when a newer release exists. To test:
+  install release N, publish N+1, open the app. Still missing: a settings entry.
+- **Requested by.** Appended to the genre line of upstream's Leanback details
+  screen and re-applied on a 1 s check while it is shown.
+- **Streams.** Jellyfin shows a non-admin only their own sessions; if everyone
+  should see all streams, add a plugin endpoint.
 - **Seerr.** Most users sign in through Google SSO and have no Seerr password,
   so the app never talks to Seerr itself. The plugin calls Seerr with the API
   key plus `X-API-User: <seerr user id>`; Seerr 3.5.1 honours it
   (`server/middleware/auth.ts`, `checkUser`). Plugin changes restart Jellyfin.
-- **SyncPlay.** Hardest: time sync, group state over the websocket, wiring into
-  the player. Decide then whether to target upstream's legacy player or the
-  rewrite (`ui/player/video`).
+  Unchecked against the live Seerr: the response fields the plugin reads, and
+  "recommended" (Seerr recommendations for the viewer's three latest requests,
+  else trending).
+- **SyncPlay.** Wired to upstream's legacy `PlaybackController` (the default
+  player) by polling it every 250 ms. Missing: buffering reports, multi-item
+  queues, the rewritten player, leaving the group on user switch. Needs a
+  two-client test before the toggle can lose "experimental".
 
 ## Open polish (My library)
 

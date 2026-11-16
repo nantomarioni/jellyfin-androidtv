@@ -2,6 +2,10 @@
 <!-- Strings of the fork's own pages (org.jellyfin.androidtv.pop). Kept out of strings.xml, which upstream's Weblate owns. -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="pop_my_library">My library</string>
+    <string name="pop_my_requests">Requests</string>
+    <string name="pop_discover">Discover</string>
+    <string name="pop_active_streams">Streams</string>
+    <string name="pop_sync_play">SyncPlay</string>
     <string name="pop_pill_value">%1$s: %2$s</string>
     <string name="pop_library_requester">Requested by</string>
     <string name="pop_library_me">Me</string>

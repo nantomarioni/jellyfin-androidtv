@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pop_my_library">Mi biblioteca</string>
+    <string name="pop_my_requests">Pedidos</string>
+    <string name="pop_discover">Descubrir</string>
+    <string name="pop_active_streams">Reproducciones</string>
+    <string name="pop_sync_play">SyncPlay</string>
     <string name="pop_library_requester">Pedido por</string>
     <string name="pop_library_me">Mí</string>
     <string name="pop_library_everyone">Todos</string>

@@ -226,6 +226,7 @@ public class FullDetailsFragment extends Fragment implements RecordingIndicatorV
     @Override
     public void onResume() {
         super.onResume();
+        org.jellyfin.androidtv.pop.requests.PopRequestedBy.attach(this); // Fork (pop): "Requested by" line
 
         ClockBehavior clockBehavior = userPreferences.getValue().get(UserPreferences.Companion.getClockBehavior());
         if (clockBehavior == ClockBehavior.ALWAYS || clockBehavior == ClockBehavior.IN_MENUS) {

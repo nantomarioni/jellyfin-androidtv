@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pop_update_available">Actualizar a %1$s</string>
+    <string name="pop_update_downloading">Bajando actualización · %1$d%%</string>
+    <string name="pop_update_installing">Instalando actualización…</string>
+    <string name="pop_update_failed">Falló la actualización · reintentar</string>
+</resources>

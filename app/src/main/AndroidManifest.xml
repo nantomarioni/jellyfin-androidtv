@@ -17,6 +17,10 @@
     <!-- Search permissions (voice to text) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <!-- Fork (pop): auto update installs the fork's own releases through the package installer -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION" />
+
     <!-- Device feature requirements -->
     <uses-feature
         android:name="android.software.leanback"
@@ -130,5 +134,10 @@
             android:windowSoftInputMode="adjustNothing" />
 
         <activity android:name=".ui.playback.ExternalPlayerActivity" />
+
+        <!-- Fork (pop): auto update, the package installer's answer -->
+        <receiver
+            android:name=".pop.update.PopUpdateReceiver"
+            android:exported="false" />
     </application>
 </manifest>

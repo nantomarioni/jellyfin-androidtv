@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fork (pop): auto update (org.jellyfin.androidtv.pop.update). -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="pop_update_available">Update to %1$s</string>
+    <string name="pop_update_downloading">Downloading update · %1$d%%</string>
+    <string name="pop_update_installing">Installing update…</string>
+    <string name="pop_update_failed">Update failed · try again</string>
+</resources>

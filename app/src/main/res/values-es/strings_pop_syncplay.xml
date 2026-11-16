@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pop_syncplay_title">Ver juntos</string>
+    <string name="pop_syncplay_default_group_name">Living</string>
+    <string name="pop_syncplay_create">Crear grupo</string>
+    <string name="pop_syncplay_leave">Salir del grupo</string>
+    <string name="pop_syncplay_join">Unirse a un grupo</string>
+    <string name="pop_syncplay_loading">Buscando grupos…</string>
+    <string name="pop_syncplay_no_groups">Nadie está viendo en grupo ahora. Creá un grupo y los demás se pueden unir.</string>
+    <string name="pop_syncplay_groups_failed">No se pudieron cargar los grupos.</string>
+    <string name="pop_syncplay_action_failed">No funcionó. Probá de nuevo.</string>
+    <string name="pop_syncplay_player_sync">Sincronizar mi reproductor (experimental)</string>
+    <string name="pop_syncplay_player_sync_on">Esta TV sigue al grupo: reproducir, pausar y adelantar vale para todos, y lo que pongas acá se reproduce para el grupo. Todavía es experimental.</string>
+    <string name="pop_syncplay_player_sync_off">Esta TV está en el grupo pero su reproductor todavía no lo sigue. Activá “Sincronizar mi reproductor” para probarlo.</string>
+    <plurals name="pop_syncplay_members">
+        <item quantity="one">%d persona en el grupo</item>
+        <item quantity="other">%d personas en el grupo</item>
+    </plurals>
+    <string name="pop_syncplay_state_idle">Nada en reproducción</string>
+    <string name="pop_syncplay_state_waiting">Esperando a todos</string>
+    <string name="pop_syncplay_state_paused">En pausa</string>
+    <string name="pop_syncplay_state_playing">Reproduciendo</string>
+    <string name="pop_syncplay_ping">Demora al servidor: %1$d ms</string>
+</resources>

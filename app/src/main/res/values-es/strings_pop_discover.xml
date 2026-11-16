@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pop_discover_show">Mostrar</string>
+    <string name="pop_discover_kind_recommended">Recomendado para vos</string>
+    <string name="pop_discover_kind_trending">Tendencias</string>
+    <string name="pop_discover_kind_movies">Películas populares</string>
+    <string name="pop_discover_kind_tv">Series populares</string>
+    <string name="pop_discover_empty">No hay nada para sugerir por ahora.</string>
+    <string name="pop_discover_failed">No se pudieron cargar las sugerencias.</string>
+    <string name="pop_discover_plugin_outdated">Las sugerencias necesitan la actualización del plugin Pop Requests en el servidor.</string>
+    <string name="pop_discover_movie">Película</string>
+    <string name="pop_discover_series">Serie</string>
+    <string name="pop_discover_available">En la biblioteca</string>
+    <string name="pop_discover_requested">Pedido</string>
+    <string name="pop_discover_request">Pedir</string>
+    <string name="pop_discover_cancel">Cancelar</string>
+    <string name="pop_discover_close">Cerrar</string>
+    <string name="pop_discover_sending">Pidiendo…</string>
+    <string name="pop_discover_done">Pedido. Aparece en Mis pedidos.</string>
+    <string name="pop_discover_series_hint">Pide todas las temporadas.</string>
+    <string name="pop_discover_no_seerr_user">Tu cuenta todavía no puede hacer pedidos. Pedile a un administrador que la agregue a Seerr.</string>
+    <string name="pop_discover_refused">No se pudo pedir.</string>
+    <string name="pop_discover_refused_message">No se pudo pedir: %1$s</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Strings of the fork's Discover page (org.jellyfin.androidtv.pop.discover). -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="pop_discover_show">Show</string>
+    <string name="pop_discover_kind_recommended">Recommended for you</string>
+    <string name="pop_discover_kind_trending">Trending</string>
+    <string name="pop_discover_kind_movies">Popular movies</string>
+    <string name="pop_discover_kind_tv">Popular series</string>
+    <string name="pop_discover_empty">Nothing to suggest right now.</string>
+    <string name="pop_discover_failed">Could not load suggestions.</string>
+    <string name="pop_discover_plugin_outdated">Suggestions need the Pop Requests plugin update on the server.</string>
+    <string name="pop_discover_movie">Movie</string>
+    <string name="pop_discover_series">Series</string>
+    <string name="pop_discover_available">In the library</string>
+    <string name="pop_discover_requested">Requested</string>
+    <string name="pop_discover_request">Request</string>
+    <string name="pop_discover_cancel">Cancel</string>
+    <string name="pop_discover_close">Close</string>
+    <string name="pop_discover_sending">Requesting…</string>
+    <string name="pop_discover_done">Requested. It shows up in My requests.</string>
+    <string name="pop_discover_series_hint">Requests every season.</string>
+    <string name="pop_discover_no_seerr_user">Your account can’t make requests yet. Ask an admin to add it to Seerr.</string>
+    <string name="pop_discover_refused">Could not request it.</string>
+    <string name="pop_discover_refused_message">Could not request it: %1$s</string>
+</resources>

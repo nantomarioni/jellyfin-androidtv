@@ -188,3 +188,21 @@ dependencies {
 	testImplementation(libs.kotest.assertions)
 	testImplementation(libs.mockk)
 }
+
+// --- Fork (pop) ---------------------------------------------------------------------------------
+// Own application id, name and version code, so the fork installs beside the official app and
+// updates itself from its own releases. Kept at the end of the file to stay out of upstream's way.
+android {
+	defaultConfig {
+		applicationId = "com.antomarioni.jellyfintv"
+		getPopVersionCode(versionName!!)?.let { versionCode = it }
+	}
+
+	buildTypes.configureEach {
+		val id = defaultConfig.applicationId + applicationIdSuffix.orEmpty()
+		resValue("string", "app_id", id)
+		resValue("string", "app_search_suggest_authority", "$id.content")
+		resValue("string", "app_search_suggest_intent_data", "content://$id.content/intent")
+		resValue("string", "app_name", if (name == "debug") "Jellyfin Pop Debug" else "Jellyfin Pop")
+	}
+}

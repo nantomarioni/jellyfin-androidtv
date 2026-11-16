@@ -1,0 +1,57 @@
+# Fork (pop): signed release APK on a GitHub Release. The app's auto update reads these releases.
+# Tag format: v<upstream version>-pop.<N> (N = version code, never resets), e.g. v0.20.0-pop.1
+name: Pop / Release
+
+on:
+  push:
+    tags:
+      - v*-pop.*
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'nantomarioni' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Java
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version-file: .tools-versions
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+
+      - name: Set JELLYFIN_VERSION
+        run: echo "JELLYFIN_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
+      - name: Decode keystore
+        env:
+          KEYSTORE: ${{ secrets.KEYSTORE }}
+        run: echo "$KEYSTORE" | base64 --decode > "$RUNNER_TEMP/keystore.jks"
+
+      - name: Assemble signed release APK
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/keystore.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew :app:assembleRelease versionTxt
+
+      - name: Verify the APK is signed
+        run: |
+          apksigner="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner"
+          "$apksigner" verify --print-certs app/build/outputs/apk/release/*-release.apk
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
+          gh release upload "$GITHUB_REF_NAME" app/build/outputs/apk/release/*-release.apk app/build/version.txt --clobber

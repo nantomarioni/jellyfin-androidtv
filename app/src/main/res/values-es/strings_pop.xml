@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pop_my_library">Mi biblioteca</string>
+    <string name="pop_library_requester">Pedido por</string>
+    <string name="pop_library_me">Mí</string>
+    <string name="pop_library_everyone">Todos</string>
+    <string name="pop_library_sort">Ordenar por</string>
+    <string name="pop_library_sort_added">Agregados recientemente</string>
+    <string name="pop_library_sort_title">Título</string>
+    <string name="pop_library_sort_released">Fecha de estreno</string>
+    <string name="pop_library_sort_rating">Puntuación</string>
+    <string name="pop_library_sort_requested">Fecha de pedido</string>
+    <string name="pop_library_hide_watched">Ocultar vistos</string>
+    <string name="pop_library_continue">Seguir viendo</string>
+    <string name="pop_library_titles">Biblioteca</string>
+    <plurals name="pop_library_count">
+        <item quantity="one">%d título</item>
+        <item quantity="other">%d títulos</item>
+    </plurals>
+    <string name="pop_library_empty_mine">Todavía no está en la biblioteca nada de lo que pediste.</string>
+    <string name="pop_library_empty_all">Todavía no hay títulos pedidos en la biblioteca.</string>
+    <string name="pop_library_empty_person">Todavía no está en la biblioteca nada de lo que pidió %1$s.</string>
+    <string name="pop_library_empty_watched">Ya viste todo lo que hay acá. Desactivá “Ocultar vistos” para verlo de nuevo.</string>
+    <string name="pop_library_load_failed">No se pudo cargar la biblioteca.</string>
+    <string name="pop_library_continue_failed">No se pudo cargar Seguir viendo.</string>
+    <string name="pop_episode_short">T%1$d·E%2$d</string>
+</resources>

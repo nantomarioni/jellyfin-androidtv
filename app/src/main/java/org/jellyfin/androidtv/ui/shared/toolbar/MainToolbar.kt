@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import org.jellyfin.androidtv.R
 import org.jellyfin.androidtv.auth.repository.SessionRepository
 import org.jellyfin.androidtv.auth.repository.UserRepository
+import org.jellyfin.androidtv.pop.ui.PopToolbarButtons
 import org.jellyfin.androidtv.ui.NowPlayingComposable
 import org.jellyfin.androidtv.ui.base.Icon
 import org.jellyfin.androidtv.ui.base.JellyfinTheme
@@ -130,6 +131,7 @@ private fun MainToolbar(
 					.focusRequester(focusRequester)
 			) {
 				ProvideTextStyle(JellyfinTheme.typography.default.copy(fontWeight = FontWeight.Bold)) {
+					PopToolbarButtons() // Fork (pop)
 					Button(
 						onClick = {
 							if (activeButton != MainToolbarActiveButton.Home) {
